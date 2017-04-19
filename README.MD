@@ -62,5 +62,5 @@ micropost:
 
 ## create demo user use IRB:
 ```bash
-User.create(name: "Michael Hartl", email: "mhartl@example.com", password: "foobar", password_confirmation: "foobar")
+User.create(name: "afeiship", email: "test@example.com", password: "happyeveryday", password_confirmation: "happyeveryday")
 ```
