@@ -14,21 +14,31 @@ Creating app... done, ⬢ salty-tundra-15420
 
 ## rails cmd:
 ```bash
-# user model:
+# 1.user model:
 rails generate scaffold User name:string email:string
 rake db:migrate
 
-# micropost model:
+# 2.micropost model:
 rails generate scaffold Micropost content:string user_id:integer
 rake db:migrate
 
-# static pages part:
+# 3.static pages part:
 # get "static_pages/home"
 # get "static_pages/help"
 
 rails generate controller StaticPages home help --no-test-framework
 
+# 4.valide unique for user:
+rails generate migration add_index_to_users_email
+# add belowe line to migration file: 
+    # add_index :users, :email, unique: true
+rake db:migrate
 
+# 5.add column: password_digest
+rails generate migration add_password_digest_to_users password_digest:string
+# check this line in migration file or not:
+    # add_column :users, :password_digest, :string
+rake db:migrate
 ```
 
 
@@ -47,4 +57,10 @@ micropost:
     id: integer
     content: string
     user_id: integer
+```
+
+
+## create demo user use IRB:
+```bash
+User.create(name: "Michael Hartl", email: "mhartl@example.com", password: "foobar", password_confirmation: "foobar")
 ```
