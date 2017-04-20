@@ -43,6 +43,14 @@ rake db:migrate
 # 6.login/logout:
 rails generate controller Sessions --no-test-framework
 
+# 7.remember user token:
+rails generate migration add_remember_token_to_users
+rake db:migrate
+#      add_column :users, :remember_token, :string
+#      add_index :users, :remember_token
+
+
+
 ```
 
 
