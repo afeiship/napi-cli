@@ -39,6 +39,10 @@ rails generate migration add_password_digest_to_users password_digest:string
 # check this line in migration file or not:
     # add_column :users, :password_digest, :string
 rake db:migrate
+
+# 6.login/logout:
+rails generate controller Sessions --no-test-framework
+
 ```
 
 
