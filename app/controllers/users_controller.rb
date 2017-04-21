@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :signed_in_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update]
 
   # GET /users
   # GET /users.json
@@ -46,7 +48,11 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, success: 'User was successfully updated.' }
+        format.html { 
+          flash[:success] = "User was successfully updated."
+          sign_in @user
+          redirect_to @user
+        }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -65,10 +71,26 @@ class UsersController < ApplicationController
     end
   end
 
+  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+
+
+    # Before filters
+    def signed_in_user
+      unless signed_in?
+        store_location
+        redirect_to signin_url, notice: "Please sign in." 
+      end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -78,3 +100,8 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 end
+
+
+
+### flast[:error/:notice] 可以作为redirect_to 的第二个参数
+### 但是 flash [:success] 却不行
