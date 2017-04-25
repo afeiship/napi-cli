@@ -60,6 +60,10 @@ rake db:migrate
 rails generate migration add_admin_to_users admin:boolean
 rake db:migrate
 
+# 9. add index for microposts:
+rails generate migration add_index_to_microposts
+# add_index :microposts, [:user_id, :created_at]
+rake db:migrate
 ```
 
 
