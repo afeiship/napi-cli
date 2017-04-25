@@ -54,3 +54,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # bootstrap:
 gem 'bootstrap-sass', '2.3.2.0'
+gem 'faker', '1.1.2'
+
+gem 'bootstrap-will_paginate', '0.0.9'

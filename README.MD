@@ -50,6 +50,9 @@ rake db:migrate
 #      add_index :users, :remember_token
 
 
+# 8. add admin for users:
+rails generate migration add_admin_to_users admin:boolean
+rake db:migrate
 
 ```
 
