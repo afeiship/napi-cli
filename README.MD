@@ -12,6 +12,12 @@ This is the legacy Heroku CLI. Please install the new CLI from https://cli.herok
 Creating app... done, ⬢ salty-tundra-15420
 ```
 
+## populate data:
+```bash
+rake db:rest
+rake db:populate
+```
+
 ## rails cmd:
 ```bash
 # 1.user model:
