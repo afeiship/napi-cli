@@ -8,7 +8,7 @@ class User < ApplicationRecord
     before_create :create_remember_token
 
     ## relationship
-    has_many :microposts
+    has_many :microposts, dependent: :destroy
 
     ## validates:
     validates :name,  presence: true, length: { maximum: 50 }

@@ -14,7 +14,7 @@ Creating app... done, ⬢ salty-tundra-15420
 
 ## populate data:
 ```bash
-rake db:rest
+rake db:reset
 rake db:populate
 ```
 
@@ -88,4 +88,14 @@ micropost:
 ## create demo user use IRB:
 ```bash
 User.create(name: "afeiship", email: "test@example.com", password: "happyeveryday", password_confirmation: "happyeveryday")
+```
+
+
+## some update(mistakes for this book:)
+```ruby
+## old
+users = User.all(limit:6)
+
+## update:
+users = User.limit(6)
 ```
