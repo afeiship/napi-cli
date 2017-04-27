@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: 'delete'
 
   ## reources:
-  resources :microposts
+  resources :microposts, only: [:create, :destroy]
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
