@@ -3,7 +3,7 @@
 import { Command, Option } from 'commander';
 import { createRequire } from 'module';
 import fs from 'node:fs';
-import { Transformer, compressJpeg } from '@napi-rs/image';
+import { Transformer, compressJpeg, pngQuantize } from '@napi-rs/image';
 
 const __dirname = new URL('../', import.meta.url).pathname;
 const require = createRequire(__dirname);
@@ -53,7 +53,7 @@ class CliApp {
     const { target, format } = this.opts;
     const fileBuffer = fs.readFileSync(source);
     const suffix = source.split('.').pop();
-    const distBuffer = await this.compress(fileBuffer, suffix, { quality: 10 });
+    const distBuffer = await this.compress(fileBuffer, { quality: 10 });
     console.log('dist buffer: ', distBuffer);
     fs.writeFileSync(target, distBuffer);
   }
@@ -63,6 +63,10 @@ class CliApp {
     const { format } = this.opts;
     if (format === 'jpg' || format === 'jpeg') {
       return compressJpeg(buffer, opts);
+    }
+
+    if (format === 'png') {
+      return pngQuantize(buffer, opts);
     }
     return new Transformer(buffer)[format](opts);
   }
