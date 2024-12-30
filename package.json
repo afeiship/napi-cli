@@ -1,0 +1,37 @@
+{
+  "name": "@jswork/napi-cli",
+  "private": true,
+  "version": "1.0.0",
+  "description": "TODO: CLI_DECRIPTION",
+  "type": "module",
+  "files": [
+    "bin"
+  ],
+  "bin": {
+    "nci": "./bin/index.js"
+  },
+  "scripts": {
+    "release": "release-it",
+    "prepare": "husky install",
+    "pretty": "prettier --write bin"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run pretty"
+    ]
+  },
+  "keywords": [
+    "napi-cli",
+    "javascript",
+    "templates"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^9.0.6",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.4"
+  },
+  "dependencies": {
+    "commander": "^11.1.0"
+  }
+}

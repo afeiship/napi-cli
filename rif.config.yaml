@@ -1,0 +1,13 @@
+name: js-cli-templates-rif
+files:
+  - "bin/*.*"
+  - "*"
+  - ".*"
+  - "!rif.config.yaml"
+replacements:
+  - from: /js-cli-description/g
+    to: Image compress cli.
+  - from: /js-cli/g
+    to: "${PROJECT_NAME}"
+  - from: /jsc/g
+    to: "nci"
