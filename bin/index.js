@@ -9,7 +9,7 @@ const __dirname = new URL('../', import.meta.url).pathname;
 const require = createRequire(__dirname);
 const pkg = require('./package.json');
 const program = new Command();
-const SUPPORT_FORMAT = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'];
+const SUPPORT_FORMAT = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp', 'avif'];
 
 program.version(pkg.version);
 program
