@@ -13,8 +13,8 @@ const program = new Command();
 program.version(pkg.version);
 program
   .addOption(new Option('-v, --verbose', 'show verbose log'))
-  .addOption(new Option('-q, --quality <number>', 'Quality of image', 60))
-  .addOption(new Option('-o, --output <string>', 'Target file'))
+  .addOption(new Option('-q, --quality <number>', 'Quality of image').default(70))
+  .addOption(new Option('-o, --output <string>', 'Target file').default('dist/output.jpg'))
   .addOption(
     new Option('-f, --format <string>', 'Target file format').choices([
       'jpg',
