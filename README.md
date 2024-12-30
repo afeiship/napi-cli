@@ -5,4 +5,7 @@
 ```shell
 # png compress
 nci .tmp/01.png -o .tmp/01-compressed.png
+
+# output webp with quality 70(.tmp/01.webp)
+nci .tmp/01.jpeg -f webp -q 70 -v
 ```

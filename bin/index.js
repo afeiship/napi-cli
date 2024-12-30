@@ -15,8 +15,8 @@ program.version(pkg.version);
 program
   .addOption(new Option('-v, --verbose', 'show verbose log'))
   .addOption(new Option('-q, --quality <number>', 'Quality of image').default(70))
-  .addOption(new Option('-o, --output <string>', 'Target file').default('dist/output.jpg'))
-  .addOption(new Option('-f, --format <string>', 'Target file format').choices(SUPPORT_FORMAT).default('jpg'))
+  .addOption(new Option('-o, --output <string>', 'Target file'))
+  .addOption(new Option('-f, --format <string>', 'Target file format').choices(SUPPORT_FORMAT))
   .parse(process.argv);
 
 /**
@@ -30,6 +30,20 @@ class CliApp {
     this.opts = program.opts();
   }
 
+  get output() {
+    const { output } = this.opts;
+    if (this.args.length < 1) throw new Error('Target file is required');
+    return output || this.args[0].replace(/\.[^.]+$/, `.${this.format}`);
+  }
+
+  get format() {
+    const { format } = this.opts;
+    if (format) return format;
+    const suffix = this.output.split('.').pop();
+    if (SUPPORT_FORMAT.includes(suffix)) return suffix;
+    return 'jpg';
+  }
+
   log(...args) {
     const { verbose } = this.opts;
     if (verbose) console.log('📗', ...args);
@@ -38,19 +52,20 @@ class CliApp {
   async run() {
     const source = this.args[0];
     if (!source) throw new Error('Source file is required');
-    const { output, quality } = this.opts;
-    this.log('opts: ', this.opts);
+    const { quality } = this.opts;
+    this.log('compressing options: ', this.opts);
     const fileBuffer = fs.readFileSync(source);
     const distBuffer = await this.compress(fileBuffer, { quality });
-    console.log(`🔨 Compressing ${source}...`);
-    fs.writeFileSync(output, distBuffer);
-    this.log(`✅ ${output} created`);
+    fs.writeFileSync(this.output, distBuffer);
+    this.log(`✅ ${this.output} created`);
   }
 
   /* compress format */
   compress(buffer, opts) {
-    const { format } = this.opts;
-    this.log('compressing', format);
+    const format = this.format;
+
+    opts.quality = parseFloat(opts.quality);
+
     if (format === 'jpg' || format === 'jpeg') {
       return compressJpeg(buffer, opts);
     }
@@ -60,7 +75,7 @@ class CliApp {
     }
 
     if (format === 'webp') {
-      return new Transformer(buffer).webp(parseFloat(opts.quality));
+      return new Transformer(buffer).webp(opts.quality);
     }
 
     return new Transformer(buffer)[format](opts);
