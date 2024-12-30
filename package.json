@@ -2,7 +2,7 @@
   "name": "@jswork/napi-cli",
   "private": true,
   "version": "1.0.0",
-  "description": "TODO: CLI_DECRIPTION",
+  "description": "Image compress cli.",
   "type": "module",
   "files": [
     "bin"
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "release": "release-it",
-    "prepare": "husky install",
+    "prepare": "husky",
     "pretty": "prettier --write bin"
   },
   "lint-staged": {
@@ -21,7 +21,11 @@
     ]
   },
   "keywords": [
+    "imc",
+    "image",
+    "image-cli",
     "napi-cli",
+    "cli",
     "javascript",
     "templates"
   ],

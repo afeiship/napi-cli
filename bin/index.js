@@ -11,7 +11,18 @@ const program = new Command();
 program.version(pkg.version);
 program
   .addOption(new Option('-v, --verbose', 'show verbose log'))
-  .addOption(new Option('-f, --force', 'force to create'))
+  .addOption(new Option('-r, --replace', 'Replace existing file'))
+  .addOption(new Option('-s, --source <string>', 'Source file'))
+  .addOption(new Option('-t, --target <string>', 'Target file'))
+  .addOption(
+    new Option('-f, --format <string>', 'Target file format').choices([
+      'jpg',
+      'jpeg',
+      'png',
+      'gif',
+      'svg',
+    ])
+  )
   .addOption(new Option('-c, --city <string>', 'weather of city').choices(['wuhan', 'shanghai']))
   .parse(process.argv);
 
