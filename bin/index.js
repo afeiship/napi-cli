@@ -9,23 +9,14 @@ const __dirname = new URL('../', import.meta.url).pathname;
 const require = createRequire(__dirname);
 const pkg = require('./package.json');
 const program = new Command();
+const SUPPORT_FORMAT = ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'];
 
 program.version(pkg.version);
 program
   .addOption(new Option('-v, --verbose', 'show verbose log'))
   .addOption(new Option('-q, --quality <number>', 'Quality of image').default(70))
   .addOption(new Option('-o, --output <string>', 'Target file').default('dist/output.jpg'))
-  .addOption(
-    new Option('-f, --format <string>', 'Target file format').choices([
-      'jpg',
-      'jpeg',
-      'png',
-      'gif',
-      'svg',
-      'webp',
-    ])
-  )
-  .addOption(new Option('-c, --city <string>', 'weather of city').choices(['wuhan', 'shanghai']))
+  .addOption(new Option('-f, --format <string>', 'Target file format').choices(SUPPORT_FORMAT).default('jpg'))
   .parse(process.argv);
 
 /**
