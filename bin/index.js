@@ -31,9 +31,12 @@ class CliApp {
   }
 
   get output() {
-    const { output } = this.opts;
+    const { output, format } = this.opts;
     if (this.args.length < 1) throw new Error('Target file is required');
-    return output || this.args[0].replace(/\.[^.]+$/, `.${this.format}`);
+    const _output = output || this.args[0];
+    const suffix = _output.split('.').pop();
+    const _format = format || suffix;
+    return _output.replace(/\.[^.]+$/, `.${_format}`);
   }
 
   get format() {
@@ -65,6 +68,10 @@ class CliApp {
     const format = this.format;
 
     opts.quality = parseFloat(opts.quality);
+
+    if (opts.quality < 0 || opts.quality > 100) {
+      throw new Error('Quality should be between 0 and 100');
+    }
 
     if (format === 'jpg' || format === 'jpeg') {
       return compressJpeg(buffer, opts);
