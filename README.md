@@ -4,5 +4,5 @@
 ## usage
 ```shell
 # png compress
-nci .tmp/01.png -o .tmp/01.png
+nci .tmp/01.png -o .tmp/01-compressed.png
 ```

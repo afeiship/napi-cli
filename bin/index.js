@@ -39,14 +39,18 @@ class CliApp {
     const source = this.args[0];
     if (!source) throw new Error('Source file is required');
     const { output, quality } = this.opts;
+    this.log('opts: ', this.opts);
     const fileBuffer = fs.readFileSync(source);
     const distBuffer = await this.compress(fileBuffer, { quality });
+    console.log(`🔨 Compressing ${source}...`);
     fs.writeFileSync(output, distBuffer);
+    this.log(`✅ ${output} created`);
   }
 
   /* compress format */
   compress(buffer, opts) {
     const { format } = this.opts;
+    this.log('compressing', format);
     if (format === 'jpg' || format === 'jpeg') {
       return compressJpeg(buffer, opts);
     }
