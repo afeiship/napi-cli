@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command, Option } from 'commander';
-import { createRequire } from 'module';
+import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import { Transformer, compressJpeg, pngQuantize } from '@napi-rs/image';
 
@@ -9,17 +9,12 @@ const __dirname = new URL('../', import.meta.url).pathname;
 const require = createRequire(__dirname);
 const pkg = require('./package.json');
 const program = new Command();
-const FORMAT_HOOKS = {
-  jpeg: 'jpg',
-  jpg: 'jpg',
-};
 
 program.version(pkg.version);
 program
   .addOption(new Option('-v, --verbose', 'show verbose log'))
-  .addOption(new Option('-r, --replace', 'Replace existing file'))
   .addOption(new Option('-q, --quality <number>', 'Quality of image', 60))
-  .addOption(new Option('-t, --target <string>', 'Target file'))
+  .addOption(new Option('-o, --output <string>', 'Target file'))
   .addOption(
     new Option('-f, --format <string>', 'Target file format').choices([
       'jpg',
@@ -52,10 +47,10 @@ class CliApp {
   async run() {
     const source = this.args[0];
     if (!source) throw new Error('Source file is required');
-    const { target, quality } = this.opts;
+    const { output, quality } = this.opts;
     const fileBuffer = fs.readFileSync(source);
     const distBuffer = await this.compress(fileBuffer, { quality });
-    fs.writeFileSync(target, distBuffer);
+    fs.writeFileSync(output, distBuffer);
   }
 
   /* compress format */
