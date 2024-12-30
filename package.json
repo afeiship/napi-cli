@@ -36,6 +36,7 @@
     "prettier": "^3.2.4"
   },
   "dependencies": {
+    "@napi-rs/image": "^1.9.2",
     "commander": "^11.1.0"
   }
 }
